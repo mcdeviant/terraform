@@ -12,10 +12,11 @@ resource "aws_instance" "web" {
   user_data     = file("init-script.sh")
   vpc_security_group_ids = [aws_security_group.allow_tls.id,
 aws_security_group.allow_http.id]
+  iam_instance_profile = aws_iam_instance_profile.leemacprofile.name
+
   tags = {
     Name = random_pet.name.id
     env = "tag"
-  iam_instance_profile = aws_iam_instance_profile.leemacprofile.name
   }
 }
 resource "aws_security_group" "allow_tls" {
